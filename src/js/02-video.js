@@ -2,15 +2,16 @@ import Player from '@vimeo/player';
 
 const iframe = document.querySelector('iframe');
 const player = new Player(iframe);
-const currentTime = localStorage.getItem('lastTime');
+const STORAGE_KEY = 'lastTime';
+const currentTime = localStorage.getItem(STORAGE_KEY);
 
 player.on('timeupdate', function (data) {
-  localStorage.setItem('lastTime', JSON.stringify(data.seconds));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data.seconds));
 });
 
 player
   .setCurrentTime(currentTime)
-  .then(function (seconds) {})
+  .then(function () {})
   .catch(function (error) {
     switch (error.name) {
       case 'RangeError':

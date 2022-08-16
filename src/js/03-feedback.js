@@ -12,7 +12,7 @@ if (localStorageData) {
 
 form.addEventListener(
   'input',
-  throttle(event => {
+  throttle(() => {
     formData.email = form.elements.email.value;
     formData.message = form.elements.message.value;
     localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(formData));
@@ -21,7 +21,11 @@ form.addEventListener(
 
 form.addEventListener('submit', event => {
   event.preventDefault();
-  console.log(localStorageData);
-  localStorage.removeItem(LOCALSTORAGE_KEY);
-  event.target.reset();
+  if (formData.email && formData.message) {
+    console.log(formData);
+    localStorage.removeItem(LOCALSTORAGE_KEY);
+    event.target.reset();
+    return;
+  }
+  alert('Заповніть ,будь ласка, ВСІ поля!!!');
 });
